@@ -3,3 +3,6 @@ __pycache__/
 
 # Virtual environments
 .venv
+
+# Local instance of app
+instance
