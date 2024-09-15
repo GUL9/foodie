@@ -1,12 +1,12 @@
+import enum
 
-from data import database as db
+from data import user
 
+class DataModels(enum.Enum):
+    USER = "User"
 
-class User(db.INSTANCE.Model):
-    id = db.INSTANCE.Column(db.INSTANCE.Integer, primary_key=True)
-    username = db.INSTANCE.Column(db.INSTANCE.String(), unique=True, nullable=False)
-
-    def __repr__(self):
-        return f'<User {self.username}>'
-
-    
+def get_api(model: DataModels):
+    if model == DataModels.USER:
+        return user.UserApi()
+    else:
+        raise ValueError(f"DataModel: {model} not supported!")

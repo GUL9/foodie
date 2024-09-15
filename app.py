@@ -1,6 +1,10 @@
 from flask import Flask
 
 from data import database as db
+from data import models
+
+_USER_API = models.get_api(models.DataModels.USER)
+
 
 
 def create_app():
@@ -14,8 +18,9 @@ def create_app():
     
     # Import models and create tables
     with app.app_context():
-        from data.models import User
+        from data.user import User
         db.INSTANCE.create_all()
+        
     
     return app
 
@@ -23,4 +28,7 @@ app = create_app()
 
 @app.route("/")
 def hello_world():
-    return "<p>Hello, Världen!</p>"
+    #_USER_API.create_new(username="anton")
+    anton = _USER_API.get_by_username(username="anton")
+    return f"<p>Hello, {anton.username}</p>"
+
